@@ -1,0 +1,92 @@
+<div class="w-screen flex flex-col justify-center items-center gap-20">
+  <h1 class="text-bold text-4xl">Add Album</h1>
+  <%= form_with model:@album, scope:@album, :url => update_album_path, :method => "post", :class => "w-2/3" do |f|%>
+    <div class="w-full flex gap-5 flex-col lg:flex-row">
+      <div class="w-full">
+        <div class="relative z-0 mb-6 w-full group">
+          <%= f.text_field :title,:id=>"title", :name=>"title",
+        :class => "block py-2.5 px-0 w-full text-sm text-black bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" %>
+          <%= f.label :title,:for => "title",
+        :class => "peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6" %>
+        </div>
+        <div class="relative z-0 mb-6 w-full group">
+          <%= f.text_field :description,:id=>"description", :name=>"description",
+        :class => "block py-2.5 px-0 w-full text-sm text-black bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" %>
+          <%= f.label :description,:for => "description",
+        :class => "peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6" %>
+        </div>
+        <div class="relative z-0 mb-6 w-full group">
+          <%= f.text_field :artist,:id=>"artist", :name=>"artist",
+        :class => "block py-2.5 px-0 w-full text-sm text-black bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" %>
+          <%= f.label :artist,:for => "artist",
+        :class => "peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6" %>
+        </div>
+        <div class="relative z-0 mb-6 w-full group">
+          <%= f.text_field :year,:id=>"year", :name=>"year",
+        :class => "block py-2.5 px-0 w-full text-sm text-black bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" %>
+          <%= f.label :year,:for => "year",
+        :class => "peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6" %>
+        </div>
+        <div class="relative z-0 mb-6 w-full group">
+          <%= f.text_field :img_url,:id=>"img_url", :name=>"img_url",
+        :class => "block py-2.5 px-0 w-full text-sm text-black bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" %>
+          <%= f.label "Image URL",:for => "img_url",
+        :class => "peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6" %>
+        </div>
+      </div>
+      <div class="w-full overflow-y-auto -translate-y-4 max-h-64 lg:max-h-80">
+        <div class="flex w-full justify-between">
+          <%= f.label "Songs",:for => "songs",
+        :class => "text-xl text-gray-500 scale-75" %>
+          <button id="add-more"
+          class="text-sm scale-75 bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">Add More</button>
+        </div>
+        <div class="song-button-group flex flex-col">
+          <%@album.songs.each do |song| %>
+            <div id=<%=song%> class="relative z-0 mb-6 w-full group songs-input-arr">
+              <%= f.text_field :songs, multiple:true,:value => song, :id=>"songs", :name=>"songs[]",
+        :class => "block py-2.5 px-0 w-full text-sm text-black bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" %>
+              <button onclick="deleteThis('<%=song%>')" class="text-sm -top-1 right-1 absolute w-20 scale-75 bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded">X</button>
+            </div>
+          <%end%>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="w-full flex lg:justify-end justify-center gap-2">
+    <%= hidden_field_tag(:id, @album.id.to_i) %>
+    <%= f.submit :class => "text-l bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"%>
+    <%= button_tag "Cancel", :type => 'button', :class => "text-l bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded",
+         :onclick => "location.href = '/'" %>
+  </div>
+<%end%>
+</div>
+<script type="text/javascript">
+  var deleteThis = (song) => {
+    console.log(song)
+    document.getElementById(song.split(" ")[0]).remove()
+  }
+    var start = () => {
+    const addNewBtn = document.getElementById("add-more")
+    const inputField = document.querySelector(".songs-input-arr")
+    addNewBtn.onclick = (e) => {
+    e.preventDefault()
+    const newInput = inputField.cloneNode(true)
+    newInput.classList.add("relative")
+    newInput.querySelector("#songs").value = ""
+
+    const delBtn = document.createElement("button")
+    delBtn.onclick = () => {
+            newInput.remove()
+        }
+    delBtn.textContent = "X"
+    delBtn.classList = "text-sm -top-1 right-1 absolute w-20 scale-75 bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded"
+
+    newInput.append(delBtn)
+
+    document.querySelector(".song-button-group")
+    .append(newInput)
+    }
+    }
+    start()
+</script>

@@ -1,0 +1,24 @@
+<div class="w-screen flex flex-col gap-5 items-center">
+  <div class="flex flex-row w-full justify-between">
+    <h1 class="text-4xl font-bold">Favorite Albums</h1>
+    <%= link_to "Add Album", new_album_path, class: "text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"  %>
+  </div>
+  <div class ="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+    <% @albums.each do |album| %>
+      <div class="max-w-sm rounded overflow-hidden shadow-lg">
+        <img class="w-full" src=<%=album.img_url%> alt="album-image">
+        <div class="px-6 py-4">
+          <div class="font-bold text-xl mb-2"><%=album.title%></div>
+          <p class="text-gray-700 text-base">
+            <%= album.description %>
+          </p>
+        </div>
+        <div class="px-6 py-4 grid grid-flow-col gap-1 w-full">
+          <%= button_to "Show", show_album_path(album.id), {method: :get, class: "w-full h-10 text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700" }%>
+          <%= button_to "Edit", edit_album_path(album.id), {method: :get, class: "w-full h-10 text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700" }%>
+          <%= button_to "Delete", delete_album_path(album.id), {method: :delete, class: "w-full h-10 text-white text-sm bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg px-5 py-2.5 mb-2"} %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
