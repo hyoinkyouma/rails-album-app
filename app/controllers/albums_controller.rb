@@ -34,7 +34,7 @@ class AlbumsController < ApplicationController
     if @album.save
       redirect_to albums_path
     else
-      render :new
+      redirect_to new_album_path
     end
   end
 

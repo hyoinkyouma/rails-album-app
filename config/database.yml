@@ -1,15 +1,13 @@
 default: &default
-  adapter: postgresql
-  encoding: unicode
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username: postgres
-  password: 123
-  host: localhost
-  port: 5432
+  adapter: "postgresql"
+  host: "containers-us-west-83.railway.app"
+  username: "postgres"
+  password: "ZIR5iuQ1ICk7eu2AwSec"
+  port: 5771
 
 development:
   <<: *default
-  database: albums
+  database: railway
 
 test:
   <<: *default
@@ -17,4 +15,4 @@ test:
 
 production:
   <<: *default
-  database: albums_prod
+  database: railway
