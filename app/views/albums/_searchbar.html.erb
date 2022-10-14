@@ -1,0 +1,6 @@
+<%=form_tag "/query/", method: :get do%>
+    <div class="flex justify-center md:gap-2 gap-1 items-center w-100 max-w-100 overflow-clip">
+        <%= text_field_tag :query, nil, placeholder:"Search", class: "py-2 px-2 -translate-y-1 bg-gray-200 text-gray-700 border-2 rounded h-full focus:outline-none focus:bg-white" %>
+        <%= submit_tag "Search", name: false, class:"text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg md:px-9 px-4 text-center py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" %>
+    </div>
+<%end%>

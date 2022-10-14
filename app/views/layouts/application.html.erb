@@ -2,6 +2,11 @@
 <html>
   <head>
     <title>Albums</title>
+    <style>
+    .caps-form {
+      text-transform: capitalize;
+    }
+    </style>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -12,7 +17,7 @@
   </head>
 
   <body>
-    <main class="container mx-auto mt-10 px-5 flex">
+    <main class="container mt-10 max-w-screen justify-center flex mx-auto">
       <%= yield %>
     </main>
   </body>
