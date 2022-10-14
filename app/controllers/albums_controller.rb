@@ -1,4 +1,19 @@
 class AlbumsController < ApplicationController
+  #TODO: TEST QUERY
+  #TODO: YT PLAYLIST URL
+
+  def query
+    query = params[:query]
+    return redirect_to "/" if query == "" || query == nil
+
+    @albums = Album.where("title ILIKE ?", "%#{query}%")
+      .or(Album.where("description ILIKE ?", "%#{query}%")
+      .or(Album.where("array_to_string(songs, ',') ILIKE ?", "%#{query}%"))
+      )
+    render 'index'
+
+  end
+
   def index
     @albums = Album.all
   end
@@ -17,7 +32,7 @@ class AlbumsController < ApplicationController
     if @album.update(album_params) && @album.update(:songs => params[:songs])
       redirect_to "/#{params[:id]}"
     else
-      render :edit
+      redirect_to "/edit/#{params[:id]}"
     end
 
 
@@ -29,8 +44,6 @@ class AlbumsController < ApplicationController
 
   def create
     @album = Album.new(album_params)
-    @album.songs = params[:songs]
-
     if @album.save
       redirect_to albums_path
     else
