@@ -30,8 +30,9 @@ class AlbumsController < ApplicationController
     puts params[:id]
     @album = Album.find params[:id]
     if @album.update(album_params) && @album.update(:songs => params[:songs])
-      redirect_to "/#{params[:id]}"
+      redirect_to "/show/#{params[:id]}"
     else
+      flash[:alert] = "Incomplete fields!"
       redirect_to "/edit/#{params[:id]}"
     end
 
@@ -47,6 +48,7 @@ class AlbumsController < ApplicationController
     if @album.save
       redirect_to albums_path
     else
+      flash[:alert] = "Incomplete fields!"
       redirect_to new_album_path
     end
   end

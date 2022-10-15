@@ -3,20 +3,25 @@
   <head>
     <title>Albums</title>
     <style>
-    .caps-form {
-      text-transform: capitalize;
-    }
+      .caps-form {
+        text-transform: capitalize;
+      }
     </style>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
-
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
-
   <body>
+    <% flash.each do |key, value| %>
+      <%= content_tag(:div, class: "alert alert-#{key}") do %>
+        <p class="w-screen flex justify-center items-center text-red-600 mt-5">
+          <%= value %>
+        </p>
+      <% end %>
+    <% end %>
     <main class="container mt-10 max-w-screen justify-center flex mx-auto">
       <%= yield %>
     </main>
